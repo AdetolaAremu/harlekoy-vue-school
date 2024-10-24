@@ -1,8 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::command('upload-batch-command')
+    ->everyMinute()
+    ->withoutOverlapping()
+    ->then(function () {
+        sleep(70);
+        Artisan::call('upload:batch-records');
+    });
