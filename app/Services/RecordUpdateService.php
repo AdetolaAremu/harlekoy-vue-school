@@ -46,9 +46,15 @@ class RecordUpdateService
             'Accept' => 'application/json'
         ];
 
-        $sendBatch = Http::withHeaders($headers)->withBasicAuth(config('app.username'), config('app.password'))->post('https://test.batch', $batches);
+        $apiURL = 'https://test.vueschool.com';
 
-        $response = json_decode($sendBatch->body());
+        Http::fake([
+            $apiURL => Http::response(['status' => 'success'], 200),
+        ]);
+
+        $apiResponse = Http::post($apiURL, $batches);
+        // ->withHeaders($headers)->withBasicAuth(config('app.username'), config('app.password'));
+        $response = json_decode($apiResponse->body());
 
         return [
             'response' => $response,
@@ -70,7 +76,7 @@ class RecordUpdateService
 
         $time = now();
 
-        if ($uploadService['response']['status'] == 'success') {
+        if ($uploadService['response']->status == 'success') {
             // Log it as success
             $message = 'Uploaded and updated batch to the API service at '. $time .' And a total of '. $uploadService['count'] . ' of users data were sent';
             $this->logRequest($message, 'success');
