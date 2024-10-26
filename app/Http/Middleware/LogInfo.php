@@ -7,6 +7,7 @@ use App\Models\LogActivity;
 use App\Traits\ActivityLogTrait;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LogInfo
 {
@@ -26,5 +27,7 @@ class LogInfo
         $makeNameLookGood = Helper::splitCamelCase($getControllerName[1]);
 
         $this->logRequest($makeNameLookGood, $decodeContent['status'] ?? 'fail');
+
+        return $response;
     }
 }

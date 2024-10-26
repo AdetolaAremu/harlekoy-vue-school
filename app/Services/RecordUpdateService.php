@@ -13,7 +13,7 @@ class RecordUpdateService
     public function getNewBatch()
     {
         return RecordUpdateTracker::where('update_batched', false)->with('user')
-            ->orderByAsc('id')
+            ->orderBy('id')
             ->limit(1000)
             ->get();
     }

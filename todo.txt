@@ -1,1 +1,2 @@
 come back to add drop to the new table created
+documentation about the codebase

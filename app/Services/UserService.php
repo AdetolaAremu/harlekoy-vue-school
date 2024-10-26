@@ -31,7 +31,7 @@ class UserService
         }
 
         if ($requestRecord->last_name) {
-            if (strtolower($dbRecord->first_name) == strtolower($requestRecord->first_name)) $userRecordUpdated = true;
+            if (strtolower($dbRecord->last_name) == strtolower($requestRecord->last_name)) $userRecordUpdated = true;
         }
 
         if ($requestRecord->email) {
